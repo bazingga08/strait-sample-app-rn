@@ -57,6 +57,9 @@ install_app() {
   adb shell pm verify-app-links --re-verify $P; sleep 8
 }
 curl -s -o /dev/null -m 90 "$E/healthz/deep"
+# Let late rows from a previous run (e.g. device-test.sh's last tap + open, reported
+# asynchronously) land before the first scenario starts its time window.
+sleep 20
 
 echo "▶ 1. App not installed"
 adb uninstall $P >/dev/null 2>&1; S=$(now)
