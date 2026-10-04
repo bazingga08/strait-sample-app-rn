@@ -18,7 +18,7 @@ exactly as any other app would.
   login), invite, and "link not recognised".
 
 Package `com.straitlink.app` · scheme `straitlink://` · verified link host
-`bridge-redirect-engine.onrender.com` (see `AndroidManifest.xml`).
+`strait-dev.strait.link` (see `AndroidManifest.xml`).
 
 ## The SDK integration (all of it)
 
@@ -29,7 +29,7 @@ import { createStrait, fromPlayInstallReferrer } from '@strait/sdk-react-native'
 
 const strait = createStrait({
   publishableKey: 'st_pub_live_…',            // Dashboard → Get started
-  endpoint: 'https://bridge-redirect-engine.onrender.com',
+  endpoint: 'https://strait-dev.strait.link',
   storage: AsyncStorage,                       // deferred check once per install
   installReferrer: fromPlayInstallReferrer(PlayInstallReferrer),
 });

@@ -8,7 +8,7 @@
        (which links this file), then a signed build verifies. Needs Apple Dev account. -->
   <key>com.apple.developer.associated-domains</key>
   <array>
-    <string>applinks:bridge-redirect-engine.onrender.com</string>
+    <string>applinks:strait-dev.strait.link</string>
   </array>
 </dict>
 </plist>
