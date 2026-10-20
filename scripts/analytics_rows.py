@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Print a workspace's taps / app opens / installs since an ISO time, normalised
+"""Print a workspace's taps / app opens since an ISO time, normalised
 for assertions: one line per row, sorted; tap ids replaced by letters (A, B, …)
 so "the open joins its tap" reads as the same letter on both lines.
 
@@ -19,11 +19,9 @@ select 'TAP' k, coalesce((select slug from links where id=link_id),'-') slug,
 union all
 select 'OPEN', coalesce((select slug from links where id=coalesce(o.link_id,(select link_id from link_clicks c where c.click_id=o.click_id))),'-'),
        route||' '||coalesce(app_state,'-')||' '||case when is_install then 'new' else 'existing' end||' '||case when matched then 'ok' else 'failed:'||coalesce(reason,'') end,
-       click_id::text, received_at
-  from app_opens o where tenant_id='{tenant}' and received_at >= '{since}'
-union all
-select 'INSTALL', coalesce((select slug from links where id=link_id),'-'), match_method||' '||case when matched then 'ok' else 'unmatched' end, click_id::text, installed_at
-  from installs where tenant_id='{tenant}' and installed_at >= '{since}'
+       click_id::text, opened_at
+  -- opened_at, not received_at/installs: both go in contract step 0068. Phone clock, same 3 s grace as taps.
+  from app_opens o where tenant_id='{tenant}' and opened_at >= timestamptz '{since}' - interval '3 seconds'
 order by 5"""
 out = subprocess.run(['node', '--env-file=.env', 'scripts/q.mjs', sql], cwd=engine, capture_output=True, text=True, check=True).stdout
 rows = json.loads(out[out.index('['):])
