@@ -12,7 +12,7 @@ APK="${1:-android/app/build/outputs/apk/release/app-release.apk}"
 E="${STRAIT_ENGINE:-https://strait-dev.strait.link}"
 T="${STRAIT_TENANT:-0a2b8762-edb7-4e07-9587-12c1f451c0ea}"   # strait-dev
 P=com.straitlink.app
-PAGE=https://bazingga08.github.io/strait-demo-site/open.html
+PAGE=https://strait-link.github.io/strait-demo-site/open.html
 HERE="$(cd "$(dirname "$0")" && pwd)"
 pass=0; fail=0; results=()
 
